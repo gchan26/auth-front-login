@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// Routing
 import { AuthRoutingModule } from './auth-routing.module';
+
+// Pages
 import { SignComponent } from './pages/sign/sign.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
   ]
 })
 export class AuthModule { }

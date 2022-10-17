@@ -7,18 +7,20 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 })
 export class AuthService {
 
-  private url: string = 'http://localhost:3000/';
+  private url: string = 'http://localhost:3000';
 
   constructor( private http: HttpClient ) { }
 
   public sign(payLoad: {email: string, password: string}): Observable<any>{
     return this.http.post(`${this.url}/sign`, payLoad).pipe(
-      map((data) => {
-        return console.log(data);
+      map((res) => {
+        return console.log(res);
       }),
-      catchError((err)=> {
-        return throwError(() => err.error.message);
+      catchError((e)=> {
+        if(e.error.message) return throwError(() => e.error.message);
+
+        return throwError(() => "No momento não estamos conseguindo validar estes dados, tente novamente mais tarde.");
       })
-    )
+    );
   }
 }

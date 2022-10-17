@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
+// Services
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,5 +30,21 @@ export class AuthService {
         );
       })
     );
+  }
+
+  public logout(){
+    localStorage.removeItem('access_token');
+    return this.router.navigate(['']);
+  }
+
+  public isAuthenticated(): boolean {
+
+    const token = localStorage.getItem('access_token');
+
+    if (!token) return false;
+
+    const jwtHelper = new JwtHelperService();
+    return !jwtHelper.isTokenExpired(token);
+
   }
 }
